@@ -1,0 +1,10 @@
+{% extends 'basebackadmin.html.twig' %}
+
+{% block admingroupe %}
+
+        <h1></h1>
+
+        {{ include('admin/formpost.html.twig') }}
+
+        <a href="{{ path('app_post_index') }}">back to list</a>
+    {% endblock %}

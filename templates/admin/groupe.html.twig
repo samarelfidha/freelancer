@@ -1,0 +1,57 @@
+{% extends 'basebackadmin.html.twig' %}
+
+{% block title %}Groupe index{% endblock %}
+
+{% block admingroupe %}
+
+    <div class="container mt-5">
+        <h1 class="text-center mb-4"></h1>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th class="text-center">Id</th>
+                    <th class="text-center">Groupe</th>
+                    <th class="text-center">Description</th>
+                    <th class="text-center">Date de création</th>
+                    <th class="text-center">Nom</th>
+                    <th class="text-center">Image</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for groupe in groupes %}
+                    <tr>
+                        <td class="text-center">{{ groupe.id }}</td>
+                        <td>{{ groupe.groupe }}</td>
+                        <td>{{ groupe.description }}</td>
+                        <td class="text-center">{{ groupe.DateDeCreation ? groupe.DateDeCreation|date('Y-m-d') : '' }}</td>
+                        <td>{{ groupe.nom }}</td>
+                        <td class="text-center">
+                            {% if groupe.image %}
+                                <img src="{{ asset('uploads/images/' ~ groupe.image) }}" alt="{{ groupe.nom }}" style="max-width: 100px;">
+                            {% else %}
+                                No Image
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ path('app_groupe_showadmin', {'id': groupe.id}) }}" class="btn btn-sm btn-info mr-1">Show</a>
+                            <a href="{{ path('app_groupe_edit', {'id': groupe.id}) }}" class="btn btn-sm btn-primary mr-1">Edit</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center">No records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center">
+            <a href="{{ path('app_groupeadmin_new') }}" class="btn btn-success">Create New</a>
+        </div>
+    </div>
+
+{% endblock %}

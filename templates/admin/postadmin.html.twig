@@ -1,0 +1,43 @@
+{% extends 'basebackadmin.html.twig' %}
+
+{% block admingroupe %}
+    <div class="container mt-5">
+        <h1> </h1>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Groupe</th>
+                    <th>Description</th>
+                    <th>Date de Publication</th>
+                    <th>Nom</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for post in posts %}
+                    <tr>
+                        <td>{{ post.groupe }}</td>
+                        <td>{{ post.description }}</td>
+                        <td>{{ post.DatePublication ? post.DatePublication|date('Y-m-d') : '' }}</td>
+                        <td>{{ post.nom }}</td>
+                        <td>
+                            <a href="{{ path('app_post_show', {'id': post.id}) }}" class="btn btn-sm btn-info mr-1">Show</a>
+                            <a href="{{ path('app_post_edit', {'id': post.id}) }}" class="btn btn-sm btn-primary mr-1">Edit</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">No records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center">
+            <a href="{{ path('app_post_admin_new') }}" class="btn btn-success">Create admin post</a>
+        </div>
+    </div>
+{% endblock %}

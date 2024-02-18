@@ -1,38 +1,58 @@
-{% extends 'base.html.twig' %}
+{% extends 'basegroupe.html.twig' %}
 
 {% block title %}Groupe{% endblock %}
 
-{% block body %}
-    <h1>Groupe</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ groupe.id }}</td>
-            </tr>
-            <tr>
-                <th>Groupe</th>
-                <td>{{ groupe.groupe }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ groupe.description }}</td>
-            </tr>
-            <tr>
-                <th>DateDeCreation</th>
-                <td>{{ groupe.DateDeCreation ? groupe.DateDeCreation|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ groupe.nom }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_groupe_index') }}">back to list</a>
-
-    <a href="{{ path('app_groupe_edit', {'id': groupe.id}) }}">edit</a>
-
-    {{ include('groupe/_delete_form.html.twig') }}
+{% block cc %}
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="text-center mb-0">Groupe Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                            <tr>
+                                <th style="width: 30%;">Id</th>
+                                <td>{{ groupe.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Groupe</th>
+                                <td>{{ groupe.groupe }}</td>
+                            </tr>
+                            <tr>
+                                <th>Description</th>
+                                <td>{{ groupe.description }}</td>
+                            </tr>
+                            <tr>
+                                <th>Date de Création</th>
+                                <td>{{ groupe.DateDeCreation ? groupe.DateDeCreation|date('Y-m-d') : '' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nom</th>
+                                <td>{{ groupe.nom }}</td>
+                            </tr>
+                            <tr>
+                                <th>Image</th>
+                                <td>
+                                    {% if groupe.image %}
+                                        <img src="{{ asset('uploads/images/' ~ groupe.image) }}" alt="{{ groupe.nom }}" class="img-fluid">
+                                    {% else %}
+                                        No Image
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <a href="{{ path('app_groupe_index') }}" class="btn btn-secondary mr-2">Back to List</a>
+                            <a href="{{ path('app_groupe_edit', {'id': groupe.id}) }}" class="btn btn-primary">Edit</a>
+                        </div>
+                        {{ include('groupe/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

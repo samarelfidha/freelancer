@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PostRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
@@ -15,13 +16,24 @@ class Post
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(max: 255)]
+    #[Assert\Regex(pattern: '/^\D*$/', message: 'The name should not contain numbers.')]
+    #[Assert\NotBlank(message: 'description cannot be blank')]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotBlank(message: "Nom cannot be blank.")]
     private ?\DateTimeInterface $DatePublication = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Regex(pattern: '/^\D*$/', message: 'The name should not contain numbers.')]
+    #[Assert\Length(max: 255)]
+    #[Assert\NotBlank(message: 'nom cannot be blank')]
+
     private ?string $nom = null;
+
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    private ?Groupe $groupe = null;
 
     public function getId(): ?int
     {
@@ -60,6 +72,18 @@ class Post
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getGroupe(): ?Groupe
+    {
+        return $this->groupe;
+    }
+
+    public function setGroupe(?Groupe $groupe): static
+    {
+        $this->groupe = $groupe;
 
         return $this;
     }

@@ -1,0 +1,38 @@
+{% extends 'basebackadmin.html.twig' %}
+
+
+{% block admingroupe %}
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ groupe.id }}</td>
+        </tr>
+        <tr>
+            <th>Groupe</th>
+            <td>{{ groupe.groupe }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ groupe.description }}</td>
+        </tr>
+        <tr>
+            <th>DateDeCreation</th>
+            <td>{{ groupe.DateDeCreation ? groupe.DateDeCreation|date('Y-m-d') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Nom</th>
+            <td>{{ groupe.nom }}</td>
+        </tr>
+        <tr>
+            <th>Image</th>
+            <td>{{ groupe.image }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_groupe_admin') }}">back to list</a>
+
+
+{% endblock %}
